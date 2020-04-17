@@ -8,6 +8,7 @@
 body {
   /* disable horizontal scrollbar*/
   overflow-x: hidden;
+  margin-top: 2%;
 }
 
 .slidecontainer {
