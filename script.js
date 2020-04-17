@@ -19,14 +19,20 @@ function slider_to_time(total_mins) {
 }
 
 function addCity(cityName, type) {
+  if (cities.indexOf(cityName) != -1) {
+    // Don't add if it already has been added.
+    return;
+  }
   cities.push(cityName);
   // Remove addCity button and plus sign
   removeMe = document.getElementById("addcity");
   removeMe.remove();
+  removeMe = document.getElementById("addbutton");
+  removeMe.remove();
   removeMe = document.getElementById("plush2");
   removeMe.remove();
 
-  var str = `<img class='icon' src='images/` + type + `.svg' alt='` + type + `' width=32 height=32>
+  var str = `<div class='city' id='` + cityName + `'><img class='icon' src='images/` + type + `.svg' alt='` + type + `' width=32 height=32>
       <h2 class='location'>` + cityName + `</h2>
        <div class='timeinput'>
       <input class='time timepicker' type='text' value='00:31' id='` + cityName + `time' size=4>
@@ -35,7 +41,7 @@ function addCity(cityName, type) {
       <input class='date' type='date' value='2020-02-08' id='` + cityName + `date'><br/>
        </div>
       <input type='range' min='0' max='1440' value='100' step='15' class='slider' id='` + cityName + `slider'/>
-       <span class='extra' id='` + cityName + `extra'>Tue Feb 8<br/><span class='highlight'></span></span>
+       <span class='extra' id='` + cityName + `extra'>Tue Feb 8<br/><span class='highlight'>(+1 day)</span></span>
        <span class='time1'>12:00AM</span>
        <span class='time2'>06:00AM</span>
        <span class='time3'>12:00PM</span>
@@ -44,7 +50,7 @@ function addCity(cityName, type) {
 
        <h2 class='plus' id='plush2'>+</h2>
 
-       <div class='addbtn autocomplete'><input type='text' placeholder='Add City' id='addcity'></div>`;
+       <div class='addbtn autocomplete' id='addbutton'><input type='text' placeholder='Add City' id='addcity'></div></div>`;
 
   var element = document.getElementById("main")
   element.insertAdjacentHTML('beforeend', str);
@@ -95,6 +101,8 @@ function addCitySelect(event, ui) {
 // have dropdown box automatically show up
 function addCityFocus() {
   $(this).autocomplete("search");
+  window.scrollTo(0,document.body.scrollHeight);
+
 }
 
 function update() {
@@ -120,7 +128,7 @@ function update() {
 
     // Set Date Mini Display
     extraDateDisplay = document.getElementById(cityName + 'extra');
-    extraDateDisplay.innerHTML = adjusted_time.toFormat("EEE MMM d");
+    extraDateDisplay.innerHTML = adjusted_time.toFormat("EEE MMM d") + "<br/><span class='highlight'></span>";
 
     // Display (+1/-1 days)
     var end = luxon.DateTime.fromISO(adjDate);
@@ -129,7 +137,7 @@ function update() {
     difference = end.diff(start, 'days').toObject()['days'];
     if (difference != 0 && cityName != homeCity) {
       var str = "<br/><span class='highlight'>(" + difference + " day)</span>";
-      extraDateDisplay.insertAdjacentHTML('beforeend', str);
+      extraDateDisplay.innerHTML = adjusted_time.toFormat("EEE MMM d") + str;
     }
   }
 

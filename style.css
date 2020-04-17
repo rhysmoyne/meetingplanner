@@ -5,6 +5,11 @@
   font-family: 'IBM Plex Sans', 'sans-serif';
 }
 
+body {
+  /* disable horizontal scrollbar*/
+  overflow-x: hidden;
+}
+
 .slidecontainer {
   width: 100%;
 }
@@ -81,7 +86,18 @@ main {
   grid-template-columns: repeat(7,1fr);
   grid-column-gap: 1%;
   grid-row-gap: 0%;
+  /* fix 'jump' when scrollbar appears */
+  width: 100vw;
 }
+
+.city {
+  display: grid;
+  grid-template-columns: repeat(7,1fr);
+  grid-column: 1/8;
+  grid-column-gap: 1%;
+  grid-row-gap: 0%;
+}
+
 
 a:link, a:visited {
   color: #000000;
@@ -144,6 +160,7 @@ h2 {
   justify-self: start;
   align-self: center;
   grid-column: 2/4;
+  margin-bottom: 25%;
 }
 
 .plus {
@@ -181,7 +198,7 @@ h3 {
 }
 
 .dateinput input[type='text'], input[type='date'] {
-  font-size: 14px; 
+  font-size: 14px;
 }
 
 input[type='text'], input[type='date'] {
