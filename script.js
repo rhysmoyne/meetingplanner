@@ -32,8 +32,13 @@ function addCity(cityName, type) {
   removeMe = document.getElementById("plush2");
   removeMe.remove();
 
+  clearButton = "";
+  if (cityName != homeCity) {
+    clearButton = "<img class='removecity' src='images/clear.svg' alt='clear' width=32 height=32 id='" + cityName + "clear'>"
+  }
   var str = `<div class='city' id='` + cityName + `'><img class='icon' src='images/` + type + `.svg' alt='` + type + `' width=32 height=32>
-      <h2 class='location'>` + cityName + `</h2>
+      <h2 class='location'>` + cityName + clearButton + `
+      </h2>
        <div class='timeinput'>
       <input class='time timepicker' type='text' value='00:31' id='` + cityName + `time' size=4>
        </div>
@@ -47,10 +52,11 @@ function addCity(cityName, type) {
        <span class='time3'>12:00PM</span>
        <span class='time4'>6:00PM</span>
        <span class='time5'>12:00AM</span>
+       </div>
 
        <h2 class='plus' id='plush2'>+</h2>
 
-       <div class='addbtn autocomplete' id='addbutton'><input type='text' placeholder='Add City' id='addcity'></div></div>`;
+       <div class='addbtn autocomplete' id='addbutton'><input type='text' placeholder='Add City' id='addcity'></div>`;
 
   var element = document.getElementById("main")
   element.insertAdjacentHTML('beforeend', str);
@@ -69,6 +75,12 @@ function addCity(cityName, type) {
 
   // date picker
   $(document.getElementById(cityName + 'date')).on('input', { city: cityName }, dateChange);
+
+  // clear button
+  if (homeCity != cityName) {
+    $(document.getElementById(cityName + 'clear')).on('click', { city: cityName }, clearCity);
+  }
+
 
   // Initialise add city dropdown
   $("#addcity").autocomplete({source: timezones, select: addCitySelect, minLength: 0});
@@ -141,6 +153,18 @@ function update() {
     }
   }
 
+}
+
+function clearCity(event) {
+  cityName = event.data.city;
+  index = cities.indexOf(cityName)
+
+  if (index != -1) {
+    // Remove city
+    removeMe = document.getElementById(cityName);
+    removeMe.remove();
+    cities.splice(index, 1);
+  }
 }
 
 
