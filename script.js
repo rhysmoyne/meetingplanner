@@ -24,14 +24,7 @@ function addCity(cityName, type) {
     return;
   }
   cities.push(cityName);
-  // Remove addCity button and plus sign
-  removeMe = document.getElementById("addcity");
-  removeMe.remove();
-  removeMe = document.getElementById("addbutton");
-  removeMe.remove();
-  removeMe = document.getElementById("plush2");
-  removeMe.remove();
-
+  
   clearButton = "";
   if (cityName != homeCity) {
     clearButton = "<img class='removecity' src='images/clear.svg' alt='clear' width=32 height=32 id='" + cityName + "clear'>"
@@ -53,13 +46,10 @@ function addCity(cityName, type) {
        <span class='time4'>6:00PM</span>
        <span class='time5'>12:00AM</span>
        </div>
+      `;
 
-       <h2 class='plus' id='plush2'>+</h2>
-
-       <div class='addbtn autocomplete' id='addbutton'><input type='text' placeholder='Add City' id='addcity'></div>`;
-
-  var element = document.getElementById("main")
-  element.insertAdjacentHTML('beforeend', str);
+  var element = document.getElementById("plush2")
+  element.insertAdjacentHTML('beforebegin', str);
 
   // Set sliders and date events
 

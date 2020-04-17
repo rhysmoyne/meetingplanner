@@ -181,6 +181,15 @@ h2 {
   margin-bottom: 25%;
 }
 
+footer {
+  grid-column: 2/7;
+  font-size: 12px;
+}
+
+footer > a {
+  margin-left: auto;
+}
+
 .plus {
   opacity: 0.5;
   grid-column: 1/2;
